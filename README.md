@@ -18,12 +18,16 @@
       - [PATCH Request:](#patch-request-1)
       - [PUT Request:](#put-request-1)
       - [DELETE Request:](#delete-request-1)
+- [Axios Interceptors:](#axios-interceptors)
+- [Error Handling:](#error-handling)
 - [Examples:](#examples)
     - [Example 1:](#example-1)
 
 
 # Introduction: 
 Axios is a promise-based HTTP client for node.js used to communicate with servers (APIs). We can use it all HTTP methods like (GET, POST, PUT, PATCH, DELETE) and for Handle headers, auth, errors, interceptors, etc.
+
+**Note:** We basically used axios as a replacement of fetch API.
 
 ### Why Axios instead of fetch: 
 
@@ -58,9 +62,11 @@ const axios = require('axios').default;
   status: 200,    
   statusText: "OK",
   headers: AxiosHeaders,
-  config: {........}
+  config: {........},
+  ............
 }
 ```
+![alt text](./assets/images/axios-response.png)
 
 # HTTP Operations(CRUD):
 
@@ -396,6 +402,64 @@ const deleteNote = async (id) => {
   }
 };
 ```
+
+# Axios Interceptors: 
+
+Add notes later for this when i learn auth in the milestone 11 or 12
+
+# Error Handling: 
+
+```js
+axios.get('http://localhost:3000/note')
+    .then(res => setNotes(res.data))
+    .catch(error => {
+        console.log(error)
+        console.log(error.message)
+        console.log(error.name)
+        console.log(error.stack)
+        console.log(error.config)
+        console.log(error.code)
+        console.log(error.status)
+      })
+```
+
+![alt text](./assets//images//axios-error.png)
+
+The general structure of axios errors is as follows:
+- error: {message, name, code, config, request, response, stack, status, ...}
+- error.message - A quick summary of the error message and the status it failed with.
+- error.name - This defines where the error originated from. For axios, it will always be an 'AxiosError'.
+- error.stack - Provides the stack trace of the error.
+- error.config - An axios config object with specific instance configurations defined by the user from when the request was made.
+- error.code - Represents an axios identified error. The table below lists out specific definitions for internal axios error.
+- error.status - HTTP response status code. See here for common HTTP response status code meanings.
+
+
+we can do more with axios error handling: 
+
+```js
+axios.get('http://localhost:3000/note')
+    .then(res => setNotes(res.data))
+    .catch(error => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data); // error message
+      console.log(error.response.status);  // HTTP status code
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  });
+```
+
+
 
 # Examples: 
 
