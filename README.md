@@ -9,6 +9,14 @@
     - [PUT Request:](#put-request)
     - [Patch Request:](#patch-request)
     - [Delete Request:](#delete-request)
+- [HTTP Operation (CRUD) with axios instance:](#http-operation-crud-with-axios-instance)
+    - [Create axios instance:](#create-axios-instance)
+    - [CRUD Operations with the help of instance:](#crud-operations-with-the-help-of-instance)
+      - [GET Request:](#get-request-1)
+      - [POST Request:](#post-request-1)
+      - [PATCH Request:](#patch-request-1)
+      - [PUT Request:](#put-request-1)
+      - [DELETE Request:](#delete-request-1)
 - [Examples:](#examples)
     - [Example 1:](#example-1)
 
@@ -198,8 +206,183 @@ const deleteNote = async () => {
 };
 ```
 
-
  
+# HTTP Operation (CRUD) with axios instance: 
+
+### Create axios instance: 
+  
+```js
+// api.js
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: "http://localhost:3000",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default api;
+```
+
+### CRUD Operations with the help of instance: 
+
+#### GET Request: 
+
+- with .then: 
+
+```js
+api.get("/notes")
+  .then(res => {
+    console.log("All notes:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+```js
+api.get(`/notes/${id}`)
+  .then(res => {
+    console.log("Single note:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+- with async/await: 
+
+```js
+const getNotes = async () => {
+  try {
+    const res = await api.get("/notes");
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+```
+
+```js
+const getNote = async (id) => {
+  try {
+    const res = await api.get(`/notes/${id}`);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+```
+
+#### POST Request: 
+
+- With .then: 
+
+```js
+api.post("/notes", newNote)
+  .then(res => {
+    console.log("Created:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+- With async/await:
+
+```js
+const createNote = async () => {
+  try {
+    const res = await api.post("/notes", newNote);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+```
+
+#### PATCH Request: 
+
+- With .then:
+
+```js
+api.patch(`/notes/${id}`, patchObj)
+  .then(res => {
+    console.log("Patched:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+- With async/await:
+
+```js
+const patchNote = async (id) => {
+  try {
+    const res = await api.patch(`/notes/${id}`, patchObj);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+```
+
+#### PUT Request: 
+
+- With .then: 
+
+```js
+api.put(`/notes/${id}`, putObj)
+  .then(res => {
+    console.log("Replaced:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+- With async/await: 
+
+```js
+const replaceNote = async (id) => {
+  try {
+    const res = await api.put(`/notes/${id}`, putObj);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+```
+
+#### DELETE Request: 
+
+- with .then: 
+
+```js
+api.delete(`/notes/${id}`)
+  .then(res => {
+    console.log("Deleted:", res.data);
+  })
+  .catch(err => {
+    console.error(err.message);
+  });
+```
+
+- with async/await: 
+
+```js
+const deleteNote = async (id) => {
+  try {
+    const res = await api.delete(`/notes/${id}`);
+    console.log(res.data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+```
 
 # Examples: 
 
