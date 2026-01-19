@@ -3,6 +3,7 @@
 - [Introduction:](#introduction)
     - [Why Axios instead of fetch:](#why-axios-instead-of-fetch)
     - [Installing Axios:](#installing-axios)
+    - [Axios Response Structure:](#axios-response-structure)
 - [HTTP Operations(CRUD):](#http-operationscrud)
     - [GET Request:](#get-request)
     - [POST Request:](#post-request)
@@ -47,6 +48,18 @@ In order to gain the TypeScript typings (for intellisense / autocomplete) while 
 const axios = require('axios').default;
 
 // axios.<method> will now provide autocomplete and parameter typings
+```
+
+### Axios Response Structure: 
+
+```js
+{
+  data: {.....},       // actual response data
+  status: 200,    
+  statusText: "OK",
+  headers: AxiosHeaders,
+  config: {........}
+}
 ```
 
 # HTTP Operations(CRUD):
