@@ -3,6 +3,12 @@
 - [Introduction:](#introduction)
     - [Why Axios instead of fetch:](#why-axios-instead-of-fetch)
     - [Installing Axios:](#installing-axios)
+- [HTTP Operations(CRUD):](#http-operationscrud)
+    - [GET Request:](#get-request)
+    - [POST Request:](#post-request)
+    - [PUT Request:](#put-request)
+    - [Patch Request:](#patch-request)
+    - [Delete Request:](#delete-request)
 - [Examples:](#examples)
     - [Example 1:](#example-1)
 
@@ -34,6 +40,166 @@ const axios = require('axios').default;
 
 // axios.<method> will now provide autocomplete and parameter typings
 ```
+
+# HTTP Operations(CRUD):
+
+### GET Request: 
+
+- with .then: 
+
+```js
+axios.get("http://localhost:3000/notes")
+  .then(res => {
+    console.log("All notes:", res.data); // actual data
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+```js
+axios.get(`http://localhost:3000/notes/${id}`)
+  .then(res => {
+    console.log("Single note:", res.data); // actual data
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+- with async/await: 
+  
+```js
+axios.get("http://localhost:3000/notes")
+  .then(res => {
+    console.log("All notes:", res.data); // actual data
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+  
+```js
+const getNotes = async () => {
+  try {
+    const res = await axios.get(`http://localhost:3000/notes/${id}`);
+    console.log("Single Note", res.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+### POST Request: 
+- with .then: 
+
+```js
+axios.post("http://localhost:3000/notes", newNoteObj)
+  .then(res => {
+    console.log("Created note:", res.data); 
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+- with async/await: 
+  
+```js
+const createNote = async () => {
+try {
+    const res = await axios.get("http://localhost:3000/notes");
+    console.log("Created Note", res.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+### PUT Request: 
+
+- with .then: 
+
+```js
+axios.put("http://localhost:3000/notes", putObj)
+  .then(res => {
+    console.log("Put replaced note:", res.data); 
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+- with async/await:
+
+```js
+const putReplace = async () => {
+  try {
+    const res = await axios.put("http://localhost:3000/notes", putObj);
+    console.log("Put replaced note", res.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+### Patch Request: 
+
+- with .then: 
+
+```js
+axios.patch("http://localhost:3000/notes", patchObj)
+  .then(res => {
+    console.log("Patch updated note:", res.data); 
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+- with async/await:
+
+```js
+const patchUpdate = async () => {
+  try {
+    const res = await axios.patch("http://localhost:3000/notes", putObj);
+    console.log("Patch updated note", res.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+### Delete Request: 
+
+
+- with .then: 
+
+```js
+axios.delete(`http://localhost:3000/notes/${id}`)
+  .then(res => {
+    console.log("Deleted note:", res.data); 
+  })
+  .catch(err => {
+    console.error(err);
+  });
+```
+
+- with async/await:
+
+```js
+const deleteNote = async () => {
+  try {
+    const res = await axios.delete(`http://localhost:3000/notes/${id}`);
+    console.log("Deleted note", res.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+
+ 
 
 # Examples: 
 
